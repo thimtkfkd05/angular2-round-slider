@@ -47,6 +47,7 @@ export class RoundSliderComponent implements OnInit {
   private circleContainer: any;
 
   private _value = 0;
+  private _prevValue = 0;
 
   get value(): number {
     return this._value;
@@ -61,11 +62,16 @@ export class RoundSliderComponent implements OnInit {
   }
 
   @Output()
+  onChange: Subject<any>;
+
+  @Output()
   onChangeEnd: Subject<any>;
 
   constructor(private element: ElementRef) {
     this.localAngleValue = 0;
     this._value = this.radiansToValue(Math.PI);
+    this._prevValue = this._value;
+    this.onChange = new Subject();
     this.onChangeEnd = new Subject();
   }
 
@@ -135,14 +141,22 @@ export class RoundSliderComponent implements OnInit {
       const dFromOrigin = Math.sqrt(Math.pow(coord[0], 2) + Math.pow(coord[1], 2));
       let alpha = Math.acos(coord[0] / dFromOrigin);
       alpha = coord[1] < 0 ? -alpha : alpha;
+      let value = instance.radiansToValue(alpha);
 
-      instance.localAngleValue = alpha;
-      instance._value = instance.radiansToValue(alpha);
-      instance.updateUI();
+      if ((instance._prevValue == 0 && _value > 10) || 
+          (instance._prevValue == 100 && _value < 90)) {
+        console.log("DEBUG overflow!");
+      } else {
+        instance.localAngleValue = alpha;
+        instance._value = value;
+        instance.updateUI();
+        instance.onChange.next(instance._value);
+        instance._prevValue = instance._value;
 
-      d3.select(this)
-        .attr('cx', d.x = instance.radius * Math.cos(alpha))
-        .attr('cy', d.y = instance.radius * Math.sin(alpha));
+        d3.select(this)
+          .attr('cx', d.x = instance.radius * Math.cos(alpha))
+          .attr('cy', d.y = instance.radius * Math.sin(alpha));
+      }
     }
   }
 
@@ -169,10 +183,6 @@ export class RoundSliderComponent implements OnInit {
 
     const xpos = this.radius * Math.cos(this.localAngleValue);
     const ypos = this.radius * Math.sin(this.localAngleValue);
-
-    console.log('x', xpos);
-    console.log('y', ypos);
-    console.log('angle', this.localAngleValue);
 
     if (this.thumb) {
       this.thumb
@@ -226,8 +236,14 @@ export class RoundSliderComponent implements OnInit {
 
       let value = instance.radiansToValue(radians);
       value = Math.floor(value);
-
-      instance._value = value;
+      
+      if ((instance._prevValue == 0 && value > 10) || 
+          (instance._prevValue == 100 && value < 90)) {
+          console.log("DEBUG overflow end");
+          value = instance._prevValue;
+      } else {
+          instance._value = value;
+      }
       instance.onChangeEnd.next(value);
 
       d3.select(this)
