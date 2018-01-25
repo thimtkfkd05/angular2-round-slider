@@ -8,8 +8,8 @@ npm-debug.log
 # *.map
 # *.d.ts
 
-src
-!dist/src
+# src
+# !dist/src
 sample
 
 # JetBrains
