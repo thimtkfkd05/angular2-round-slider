@@ -1,0 +1,34 @@
+import { OnInit, ElementRef } from '@angular/core';
+import { Subject } from 'rxjs/Rx';
+import 'd3';
+export declare class RoundSliderComponent implements OnInit {
+    private element;
+    width: number;
+    height: number;
+    radius: number;
+    max: number;
+    thick: number;
+    min: number;
+    imageUrl: string;
+    units: string;
+    imageSize: number;
+    imagePosition: number;
+    private thumb;
+    private arcForeground;
+    private arc;
+    private localAngleValue;
+    private circleContainer;
+    private _value;
+    private _prevValue;
+    value: number;
+    onChange: Subject<any>;
+    onChangeEnd: Subject<any>;
+    constructor(element: ElementRef);
+    ngOnInit(): void;
+    private dragged(instance);
+    private dragStarted();
+    private updateUI();
+    private radiansToValue(radians);
+    private valueToRadians(value);
+    private dragEnded(instance);
+}
