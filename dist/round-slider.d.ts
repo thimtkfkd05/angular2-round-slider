@@ -18,7 +18,6 @@ export declare class RoundSliderComponent implements OnInit {
     private localAngleValue;
     private circleContainer;
     private _value;
-    private _prevValue;
     value: number;
     onChange: Subject<any>;
     onChangeEnd: Subject<any>;

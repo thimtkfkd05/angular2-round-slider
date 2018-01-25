@@ -45,7 +45,6 @@ export class RoundSliderComponent implements OnInit {
   private circleContainer: any;
 
   private _value = 0;
-  private _prevValue = 0;
 
   get value(): number {
     return this._value;
@@ -68,7 +67,6 @@ export class RoundSliderComponent implements OnInit {
   constructor(private element: ElementRef) {
     this.localAngleValue = 0;
     this._value = this.radiansToValue(Math.PI);
-    this._prevValue = this._value;
     this.onChange = new Subject();
     this.onChangeEnd = new Subject();
   }
@@ -140,17 +138,28 @@ export class RoundSliderComponent implements OnInit {
       let alpha = Math.acos(coord[0] / dFromOrigin);
       alpha = coord[1] < 0 ? -alpha : alpha;
       let value = instance.radiansToValue(alpha);
-
-      if ((instance._prevValue == 0 && value > 10) || 
-          (instance._prevValue == 100 && value < 90)) {
-        console.log("DEBUG overflow!");
-      } else {
+      let diff = instance._value - value;
+      let needChangeUI = true;
+      let needChangeD3 = true;
+      if (Math.abs(diff) > 60) {
+        needChangeD3 = false;
+        if (diff > 0 && value != instance.max) {
+          alpha = Math.PI / 2 - 0.00000001;
+          value = instance.max;
+        } else if (diff < 0 && value != instance.min) {
+          alpha = Math.PI / 2;
+          value = instance.min;
+        } else {
+          needChangeUI = false;
+        }
+      } 
+      if (needChangeUI) {
         instance.localAngleValue = alpha;
         instance._value = value;
         instance.updateUI();
         instance.onChange.next(instance._value);
-        instance._prevValue = instance._value;
-
+      }
+      if (needChangeD3) {
         d3.select(this)
           .attr('cx', d.x = instance.radius * Math.cos(alpha))
           .attr('cy', d.y = instance.radius * Math.sin(alpha));
@@ -234,12 +243,18 @@ export class RoundSliderComponent implements OnInit {
 
       let value = instance.radiansToValue(radians);
       value = Math.floor(value);
-      
-      if ((instance._prevValue == 0 && value > 10) || 
-          (instance._prevValue == 100 && value < 90)) {
-          console.log("DEBUG overflow end");
-          value = instance._prevValue;
-      } else {
+      let diff = instance._value - value;
+      let changeValue = true;
+      if (Math.abs(diff) > 60) {
+        if (diff > 0 && value != instance.max) {
+          value = instance.max;
+        } else if (diff < 0 && value != instance.min) {
+          value = instance.min;
+        } else {
+          changeValue = false;
+        }
+      }
+      if (changeValue)  {
           instance._value = value;
       }
       instance.onChangeEnd.next(value);
