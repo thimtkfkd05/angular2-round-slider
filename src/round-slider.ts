@@ -143,8 +143,8 @@ export class RoundSliderComponent implements OnInit {
       alpha = coord[1] < 0 ? -alpha : alpha;
       let value = instance.radiansToValue(alpha);
 
-      if ((instance._prevValue == 0 && _value > 10) || 
-          (instance._prevValue == 100 && _value < 90)) {
+      if ((instance._prevValue == 0 && value > 10) || 
+          (instance._prevValue == 100 && value < 90)) {
         console.log("DEBUG overflow!");
       } else {
         instance.localAngleValue = alpha;
