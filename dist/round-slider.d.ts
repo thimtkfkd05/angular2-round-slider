@@ -1,6 +1,5 @@
 import { OnInit, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
-import 'd3';
 export declare class RoundSliderComponent implements OnInit {
     private element;
     width: number;

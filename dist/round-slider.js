@@ -11,8 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Rx_1 = require("rxjs/Rx");
-require("d3");
-var d3;
+var d3_1 = require("d3");
 var RoundSliderComponent = (function () {
     function RoundSliderComponent(element) {
         this.element = element;
@@ -46,9 +45,9 @@ var RoundSliderComponent = (function () {
     RoundSliderComponent.prototype.ngOnInit = function () {
         this.imageSize = (this.radius * 2);
         this.imagePosition = (this.width / 2) - this.radius;
-        var host = d3.select(this.element.nativeElement);
-        host = d3.selectAll('.round-slider-container');
-        var drag = d3.drag()
+        var host = d3_1.default.select(this.element.nativeElement);
+        host = d3_1.default.selectAll('.round-slider-container');
+        var drag = d3_1.default.drag()
             .on('start', this.dragStarted())
             .on('drag', this.dragged(this))
             .on('end', this.dragEnded(this));
@@ -66,7 +65,7 @@ var RoundSliderComponent = (function () {
                 x: 0,
                 y: this.radius
             }];
-        this.arc = d3.arc()
+        this.arc = d3_1.default.arc()
             .innerRadius(this.radius - (this.thick / 2))
             .outerRadius(this.radius + (this.thick / 2))
             .startAngle(Math.PI);
@@ -92,7 +91,7 @@ var RoundSliderComponent = (function () {
     };
     RoundSliderComponent.prototype.dragged = function (instance) {
         return function (d) {
-            var coord = d3.mouse(this);
+            var coord = d3_1.default.mouse(this);
             var dFromOrigin = Math.sqrt(Math.pow(coord[0], 2) + Math.pow(coord[1], 2));
             var alpha = Math.acos(coord[0] / dFromOrigin);
             alpha = coord[1] < 0 ? -alpha : alpha;
@@ -107,7 +106,7 @@ var RoundSliderComponent = (function () {
                 instance.updateUI();
                 instance.onChange.next(instance._value);
                 instance._prevValue = instance._value;
-                d3.select(this)
+                d3_1.default.select(this)
                     .attr('cx', d.x = instance.radius * Math.cos(alpha))
                     .attr('cy', d.y = instance.radius * Math.sin(alpha));
             }
@@ -115,8 +114,8 @@ var RoundSliderComponent = (function () {
     };
     RoundSliderComponent.prototype.dragStarted = function () {
         return function () {
-            d3.event.sourceEvent.stopPropagation();
-            d3.select(this)
+            d3_1.default.event.sourceEvent.stopPropagation();
+            d3_1.default.select(this)
                 .classed('dragging', true);
         };
     };
@@ -169,7 +168,7 @@ var RoundSliderComponent = (function () {
     };
     RoundSliderComponent.prototype.dragEnded = function (instance) {
         return function () {
-            var coord = d3.mouse(this);
+            var coord = d3_1.default.mouse(this);
             var radians = Math.atan2(coord[1], coord[0]);
             var value = instance.radiansToValue(radians);
             value = Math.floor(value);
@@ -182,7 +181,7 @@ var RoundSliderComponent = (function () {
                 instance._value = value;
             }
             instance.onChangeEnd.next(value);
-            d3.select(this)
+            d3_1.default.select(this)
                 .classed('dragging', false);
         };
     };

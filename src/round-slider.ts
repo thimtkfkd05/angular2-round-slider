@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, Output, ElementRef } from '@angular/core';
 import { Subject } from 'rxjs/Rx';
-
-import 'd3';
-let d3: any;
+import { default as d3 } from 'd3';
 
 @Component({
   selector: 'round-slider',
