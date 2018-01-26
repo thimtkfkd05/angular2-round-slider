@@ -6,7 +6,7 @@ import * as d3 from 'd3';
   selector: 'round-slider',
   template: `
     <div class="round-slider-container" [ngStyle]="{'width':width+'px', 'height':height+'px'}">
-        <span class="round-slider-text">{{value}}{{units}}</span>
+        <span class="round-slider-text">{{getRate()}}{{units}}</span>
         <div [ngStyle]="{'background-image': 'url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}" class="round-slider-image"></div>
     </div>`
 })
@@ -77,7 +77,7 @@ export class RoundSliderComponent implements OnInit {
 
     let host = d3.select(this.element.nativeElement);
 
-    host = d3.selectAll('.round-slider-container');
+    // host = d3.selectAll('.round-slider-container');
 
     let drag = d3.drag()
       .on('start', this.dragStarted())
@@ -138,7 +138,7 @@ export class RoundSliderComponent implements OnInit {
       let alpha = Math.acos(coord[0] / dFromOrigin);
       alpha = coord[1] < 0 ? -alpha : alpha;
       let value = instance.radiansToValue(alpha);
-      let diff = instance._value - value;
+      let diff = (instance._value - value) / instance.max * 100;
       let needChangeUI = true;
       let needChangeD3 = true;
       if (Math.abs(diff) > 60) {
@@ -243,7 +243,7 @@ export class RoundSliderComponent implements OnInit {
 
       let value = instance.radiansToValue(radians);
       value = Math.floor(value);
-      let diff = instance._value - value;
+      let diff = (instance._value - value) / instance.max * 100;
       let changeValue = true;
       if (Math.abs(diff) > 60) {
         if (diff > 0 && value != instance.max) {
@@ -262,5 +262,9 @@ export class RoundSliderComponent implements OnInit {
       d3.select(this)
         .classed('dragging', false);
     };
+  }
+
+  private getRate() {
+    return Math.floor(this._value / this.max * 100);
   }
 }
