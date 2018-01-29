@@ -22,6 +22,7 @@ var RoundSliderComponent = (function () {
         this.thick = 5;
         this.min = 0;
         this.units = '%';
+        this.scentName = '';
         this._value = 0;
         this.localAngleValue = 0;
         this._value = this.radiansToValue(Math.PI);
@@ -41,10 +42,12 @@ var RoundSliderComponent = (function () {
         configurable: true
     });
     RoundSliderComponent.prototype.ngOnInit = function () {
-        this.imageSize = (this.radius * 2);
-        this.imagePosition = (this.width / 2) - this.radius;
+        // this.imageSize = (this.radius * 2);
+        // this.imagePosition = (this.width / 2) - this.radius;
+        this.imageSize = this.width;
+        this.imagePosition = 0;
         var host = d3.select(this.element.nativeElement);
-        host = d3.selectAll('.round-slider-container');
+        // host = d3.selectAll('.round-slider-container');
         var drag = d3.drag()
             .on('start', this.dragStarted())
             .on('drag', this.dragged(this))
@@ -94,7 +97,7 @@ var RoundSliderComponent = (function () {
             var alpha = Math.acos(coord[0] / dFromOrigin);
             alpha = coord[1] < 0 ? -alpha : alpha;
             var value = instance.radiansToValue(alpha);
-            var diff = instance._value - value;
+            var diff = (instance._value - value) / instance.max * 100;
             var needChangeUI = true;
             var needChangeD3 = true;
             if (Math.abs(diff) > 60) {
@@ -184,7 +187,7 @@ var RoundSliderComponent = (function () {
             var radians = Math.atan2(coord[1], coord[0]);
             var value = instance.radiansToValue(radians);
             value = Math.floor(value);
-            var diff = instance._value - value;
+            var diff = (instance._value - value) / instance.max * 100;
             var changeValue = true;
             if (Math.abs(diff) > 60) {
                 if (diff > 0 && value != instance.max) {
@@ -204,6 +207,9 @@ var RoundSliderComponent = (function () {
             d3.select(this)
                 .classed('dragging', false);
         };
+    };
+    RoundSliderComponent.prototype.getRate = function () {
+        return Math.floor(this._value / this.max * 100);
     };
     __decorate([
         core_1.Input(),
@@ -239,6 +245,10 @@ var RoundSliderComponent = (function () {
     ], RoundSliderComponent.prototype, "units", void 0);
     __decorate([
         core_1.Input(),
+        __metadata("design:type", String)
+    ], RoundSliderComponent.prototype, "scentName", void 0);
+    __decorate([
+        core_1.Input(),
         __metadata("design:type", Number),
         __metadata("design:paramtypes", [Number])
     ], RoundSliderComponent.prototype, "value", null);
@@ -253,7 +263,7 @@ var RoundSliderComponent = (function () {
     RoundSliderComponent = __decorate([
         core_1.Component({
             selector: 'round-slider',
-            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <span class=\"round-slider-text\">{{value}}{{units}}</span>\n        <div [ngStyle]=\"{'background-image': 'url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}\" class=\"round-slider-image\"></div>\n    </div>"
+            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <div class=\"round-slider-text\">{{getRate()}}<span class=\"round-slider-text-unit\">{{units}}</span><div class=\"round-slider-text-scent\">{{scentName}}</div></div>\n        <div [ngStyle]=\"{'background-image': 'url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}\" class=\"round-slider-image\"></div>\n    </div>"
         }),
         __metadata("design:paramtypes", [core_1.ElementRef])
     ], RoundSliderComponent);

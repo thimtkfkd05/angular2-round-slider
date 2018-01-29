@@ -6,7 +6,7 @@ import * as d3 from 'd3';
   selector: 'round-slider',
   template: `
     <div class="round-slider-container" [ngStyle]="{'width':width+'px', 'height':height+'px'}">
-        <span class="round-slider-text">{{getRate()}}{{units}}</span>
+        <div class="round-slider-text">{{getRate()}}<span class="round-slider-text-unit">{{units}}</span><div class="round-slider-text-scent">{{scentName}}</div></div>
         <div [ngStyle]="{'background-image': 'url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}" class="round-slider-image"></div>
     </div>`
 })
@@ -34,6 +34,9 @@ export class RoundSliderComponent implements OnInit {
 
   @Input()
   units: string = '%';
+
+  @Input()
+  scentName: string = '';
 
   imageSize: number;
   imagePosition: number;
@@ -72,8 +75,10 @@ export class RoundSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.imageSize = (this.radius * 2);
-    this.imagePosition = (this.width / 2) - this.radius;
+    // this.imageSize = (this.radius * 2);
+    // this.imagePosition = (this.width / 2) - this.radius;
+    this.imageSize = this.width;
+    this.imagePosition = 0;
 
     let host = d3.select(this.element.nativeElement);
 

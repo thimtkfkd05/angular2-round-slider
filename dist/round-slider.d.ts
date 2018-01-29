@@ -10,6 +10,7 @@ export declare class RoundSliderComponent implements OnInit {
     min: number;
     imageUrl: string;
     units: string;
+    scentName: string;
     imageSize: number;
     imagePosition: number;
     private thumb;
@@ -29,4 +30,5 @@ export declare class RoundSliderComponent implements OnInit {
     private radiansToValue(radians);
     private valueToRadians(value);
     private dragEnded(instance);
+    private getRate();
 }
