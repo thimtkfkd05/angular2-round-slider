@@ -100,7 +100,7 @@ var RoundSliderComponent = (function () {
             var diff = (instance._value - value) / instance.max * 100;
             var needChangeUI = true;
             var needChangeD3 = true;
-            if (Math.abs(diff) > 60) {
+            if (Math.abs(diff) > 50) {
                 needChangeD3 = false;
                 if (diff > 0 && value != instance.max) {
                     alpha = Math.PI / 2 - 0.00000001;
@@ -189,7 +189,7 @@ var RoundSliderComponent = (function () {
             value = Math.floor(value);
             var diff = (instance._value - value) / instance.max * 100;
             var changeValue = true;
-            if (Math.abs(diff) > 60) {
+            if (Math.abs(diff) > 50) {
                 if (diff > 0 && value != instance.max) {
                     value = instance.max;
                 }

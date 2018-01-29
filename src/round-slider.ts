@@ -81,7 +81,6 @@ export class RoundSliderComponent implements OnInit {
     this.imagePosition = 0;
 
     let host = d3.select(this.element.nativeElement);
-
     // host = d3.selectAll('.round-slider-container');
 
     let drag = d3.drag()
@@ -146,7 +145,7 @@ export class RoundSliderComponent implements OnInit {
       let diff = (instance._value - value) / instance.max * 100;
       let needChangeUI = true;
       let needChangeD3 = true;
-      if (Math.abs(diff) > 60) {
+      if (Math.abs(diff) > 50) {
         needChangeD3 = false;
         if (diff > 0 && value != instance.max) {
           alpha = Math.PI / 2 - 0.00000001;
@@ -250,7 +249,7 @@ export class RoundSliderComponent implements OnInit {
       value = Math.floor(value);
       let diff = (instance._value - value) / instance.max * 100;
       let changeValue = true;
-      if (Math.abs(diff) > 60) {
+      if (Math.abs(diff) > 50) {
         if (diff > 0 && value != instance.max) {
           value = instance.max;
         } else if (diff < 0 && value != instance.min) {
