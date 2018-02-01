@@ -263,7 +263,7 @@ var RoundSliderComponent = (function () {
     RoundSliderComponent = __decorate([
         core_1.Component({
             selector: 'round-slider',
-            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <div class=\"round-slider-text\">{{getRate()}}<span class=\"round-slider-text-unit\">{{units}}</span><div class=\"round-slider-text-scent\">{{scentName}}</div></div>\n        <div [ngStyle]=\"{'background-image': 'url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}\" class=\"round-slider-image\"></div>\n    </div>"
+            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <div class=\"round-slider-text\">{{getRate()}}<span class=\"round-slider-text-unit\">{{units}}</span><div class=\"round-slider-text-scent\">{{scentName}}</div></div>\n        <div [ngStyle]=\"{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}\" class=\"round-slider-image\"></div>\n    </div>"
         }),
         __metadata("design:paramtypes", [core_1.ElementRef])
     ], RoundSliderComponent);

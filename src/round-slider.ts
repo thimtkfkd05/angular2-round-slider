@@ -7,7 +7,7 @@ import * as d3 from 'd3';
   template: `
     <div class="round-slider-container" [ngStyle]="{'width':width+'px', 'height':height+'px'}">
         <div class="round-slider-text">{{getRate()}}<span class="round-slider-text-unit">{{units}}</span><div class="round-slider-text-scent">{{scentName}}</div></div>
-        <div [ngStyle]="{'background-image': 'url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}" class="round-slider-image"></div>
+        <div [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}" class="round-slider-image"></div>
     </div>`
 })
 export class RoundSliderComponent implements OnInit {
