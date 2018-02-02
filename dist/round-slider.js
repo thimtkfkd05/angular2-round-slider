@@ -48,10 +48,13 @@ var RoundSliderComponent = (function () {
         this.imagePosition = 0;
         var host = d3.select(this.element.nativeElement);
         // host = d3.selectAll('.round-slider-container');
-        var drag = d3.drag()
-            .on('start', this.dragStarted())
-            .on('drag', this.dragged(this))
-            .on('end', this.dragEnded(this));
+        var drag = null;
+        if (this.scentName) {
+            drag = d3.drag()
+                .on('start', this.dragStarted())
+                .on('drag', this.dragged(this))
+                .on('end', this.dragEnded(this));
+        }
         var svg = host.append('svg')
             .attr('width', this.width)
             .attr('height', this.height)
@@ -86,8 +89,10 @@ var RoundSliderComponent = (function () {
         })
             .attr('cy', function (d) {
             return d.y;
-        })
-            .call(drag);
+        });
+        if (drag !== null) {
+            this.thumb.call(drag);
+        }
         this.updateUI();
     };
     RoundSliderComponent.prototype.dragged = function (instance) {

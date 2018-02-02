@@ -83,10 +83,13 @@ export class RoundSliderComponent implements OnInit {
     let host = d3.select(this.element.nativeElement);
     // host = d3.selectAll('.round-slider-container');
 
-    let drag = d3.drag()
-      .on('start', this.dragStarted())
-      .on('drag', this.dragged(this))
-      .on('end', this.dragEnded(this));
+    let drag = null;
+    if (this.scentName) {
+      drag = d3.drag()
+        .on('start', this.dragStarted())
+        .on('drag', this.dragged(this))
+        .on('end', this.dragEnded(this));
+    }
 
     let svg = host.append('svg')
       .attr('width', this.width)
@@ -128,8 +131,11 @@ export class RoundSliderComponent implements OnInit {
       })
       .attr('cy', function (d: any) {
         return d.y;
-      })
-      .call(drag);
+      });
+      
+    if (drag !== null) { 
+      this.thumb.call(drag);
+    }
 
     this.updateUI();
   }
