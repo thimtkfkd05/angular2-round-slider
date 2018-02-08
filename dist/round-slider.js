@@ -104,9 +104,7 @@ var RoundSliderComponent = (function () {
             var value = instance.radiansToValue(alpha);
             var diff = (instance._value - value) / instance.max * 100;
             var needChangeUI = true;
-            var needChangeD3 = true;
             if (Math.abs(diff) > 50) {
-                needChangeD3 = false;
                 if (diff > 0 && value != instance.max) {
                     alpha = Math.PI / 2 - 0.00000001;
                     value = instance.max;
@@ -123,13 +121,11 @@ var RoundSliderComponent = (function () {
                 instance.localAngleValue = alpha;
                 instance._value = value;
                 instance.updateUI();
-                instance.onChange.next(instance._value);
             }
-            if (needChangeD3) {
-                d3.select(this)
-                    .attr('cx', d.x = instance.radius * Math.cos(alpha))
-                    .attr('cy', d.y = instance.radius * Math.sin(alpha));
-            }
+            instance.onChange.next(instance._value);
+            d3.select(this)
+                .attr('cx', d.x = instance.radius * Math.cos(alpha))
+                .attr('cy', d.y = instance.radius * Math.sin(alpha));
         };
     };
     RoundSliderComponent.prototype.dragStarted = function () {
@@ -208,7 +204,7 @@ var RoundSliderComponent = (function () {
             if (changeValue) {
                 instance._value = value;
             }
-            instance.onChangeEnd.next(value);
+            instance.onChangeEnd.next(instance._value);
             d3.select(this)
                 .classed('dragging', false);
         };
