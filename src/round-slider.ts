@@ -152,7 +152,7 @@ export class RoundSliderComponent implements OnInit {
       let needChangeUI = true;
       if (Math.abs(diff) > 50) {
         if (diff > 0 && value != instance.max) {
-          alpha = Math.PI / 2 - 0.00000001;
+          alpha = Math.PI / 2;
           value = instance.max;
         } else if (diff < 0 && value != instance.min) {
           alpha = Math.PI / 2;
