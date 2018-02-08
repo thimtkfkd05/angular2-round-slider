@@ -101,7 +101,7 @@ export class RoundSliderComponent implements OnInit {
     let container = svg.append('g');
 
     this.circleContainer = container.append('circle')
-      .attr('r', this.radius - (this.thick / 2))
+      .attr('r', this.radius)
       .attr('class', 'circumference');
 
     let handle = [{

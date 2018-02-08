@@ -63,7 +63,7 @@ var RoundSliderComponent = (function () {
             .attr('transform', 'translate(' + this.width / 2 + ',' + this.height / 2 + ')');
         var container = svg.append('g');
         this.circleContainer = container.append('circle')
-            .attr('r', this.radius - (this.thick / 2))
+            .attr('r', this.radius)
             .attr('class', 'circumference');
         var handle = [{
                 x: 0,
