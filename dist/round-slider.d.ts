@@ -11,6 +11,7 @@ export declare class RoundSliderComponent implements OnInit {
     imageUrl: string;
     units: string;
     scentName: string;
+    scentColor: string;
     imageSize: number;
     imagePosition: number;
     private thumb;
@@ -25,7 +26,7 @@ export declare class RoundSliderComponent implements OnInit {
     constructor(element: ElementRef);
     ngOnInit(): void;
     private dragged(instance);
-    private dragStarted();
+    private dragStarted(instance);
     private updateUI();
     private radiansToValue(radians);
     private valueToRadians(value);

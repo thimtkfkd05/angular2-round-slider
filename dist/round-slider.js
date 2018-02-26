@@ -23,6 +23,7 @@ var RoundSliderComponent = (function () {
         this.min = 0;
         this.units = '%';
         this.scentName = '';
+        this.scentColor = 'steelblue';
         this._value = 0;
         this.localAngleValue = 0;
         this._value = this.radiansToValue(Math.PI);
@@ -51,7 +52,7 @@ var RoundSliderComponent = (function () {
         var drag = null;
         if (this.scentName) {
             drag = d3.drag()
-                .on('start', this.dragStarted())
+                .on('start', this.dragStarted(this))
                 .on('drag', this.dragged(this))
                 .on('end', this.dragEnded(this));
         }
@@ -76,7 +77,9 @@ var RoundSliderComponent = (function () {
         this.arcForeground = container.append('path')
             .datum({ endAngle: Math.PI })
             .attr('class', 'arc')
-            .attr('d', this.arc);
+            .attr('d', this.arc)
+            .style('fill', this.scentColor)
+            .style('stroke', this.scentColor);
         this.thumb = container.append('g')
             .attr('class', 'dot')
             .selectAll('circle')
@@ -89,7 +92,8 @@ var RoundSliderComponent = (function () {
         })
             .attr('cy', function (d) {
             return d.y;
-        });
+        })
+            .style('stroke', this.scentColor);
         if (drag !== null) {
             this.thumb.call(drag);
         }
@@ -106,7 +110,7 @@ var RoundSliderComponent = (function () {
             var needChangeUI = true;
             if (Math.abs(diff) > 50) {
                 if (diff > 0 && value != instance.max) {
-                    alpha = Math.PI / 2 - 0.00000001;
+                    alpha = Math.PI / 2;
                     value = instance.max;
                 }
                 else if (diff < 0 && value != instance.min) {
@@ -128,10 +132,11 @@ var RoundSliderComponent = (function () {
                 .attr('cy', d.y = instance.radius * Math.sin(alpha));
         };
     };
-    RoundSliderComponent.prototype.dragStarted = function () {
+    RoundSliderComponent.prototype.dragStarted = function (instance) {
         return function () {
             d3.event.sourceEvent.stopPropagation();
             d3.select(this)
+                .style('fill', instance.scentColor)
                 .classed('dragging', true);
         };
     };
@@ -206,7 +211,8 @@ var RoundSliderComponent = (function () {
             }
             instance.onChangeEnd.next(instance._value);
             d3.select(this)
-                .classed('dragging', false);
+                .classed('dragging', false)
+                .style('fill', 'white');
         };
     };
     RoundSliderComponent.prototype.getRate = function () {
@@ -248,6 +254,10 @@ var RoundSliderComponent = (function () {
         core_1.Input(),
         __metadata("design:type", String)
     ], RoundSliderComponent.prototype, "scentName", void 0);
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", String)
+    ], RoundSliderComponent.prototype, "scentColor", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Number),

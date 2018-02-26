@@ -38,6 +38,9 @@ export class RoundSliderComponent implements OnInit {
   @Input()
   scentName: string = '';
 
+  @Input()
+  scentColor: string = 'steelblue';
+
   imageSize: number;
   imagePosition: number;
 
@@ -86,7 +89,7 @@ export class RoundSliderComponent implements OnInit {
     let drag = null;
     if (this.scentName) {
       drag = d3.drag()
-        .on('start', this.dragStarted())
+        .on('start', this.dragStarted(this))
         .on('drag', this.dragged(this))
         .on('end', this.dragEnded(this));
     }
@@ -117,7 +120,9 @@ export class RoundSliderComponent implements OnInit {
     this.arcForeground = container.append('path')
       .datum({endAngle: Math.PI})
       .attr('class', 'arc')
-      .attr('d', this.arc);
+      .attr('d', this.arc)
+      .style('fill', this.scentColor)
+      .style('stroke', this.scentColor);
 
     this.thumb = container.append('g')
       .attr('class', 'dot')
@@ -131,7 +136,8 @@ export class RoundSliderComponent implements OnInit {
       })
       .attr('cy', function (d: any) {
         return d.y;
-      });
+      })
+      .style('stroke', this.scentColor);
       
     if (drag !== null) { 
       this.thumb.call(drag);
@@ -174,10 +180,11 @@ export class RoundSliderComponent implements OnInit {
     }
   }
 
-  private dragStarted() {
+  private dragStarted(instance: any) {
     return function () {
       d3.event.sourceEvent.stopPropagation();
       d3.select(this)
+        .style('fill', instance.scentColor)
         .classed('dragging', true);
     };
   }
@@ -267,7 +274,8 @@ export class RoundSliderComponent implements OnInit {
       instance.onChangeEnd.next(instance._value);
 
       d3.select(this)
-        .classed('dragging', false);
+          .classed('dragging', false)
+          .style('fill', 'white');
     };
   }
 
