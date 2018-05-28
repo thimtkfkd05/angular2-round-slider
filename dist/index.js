@@ -17,7 +17,8 @@ var RoundSliderModule = (function () {
     RoundSliderModule = __decorate([
         core_1.NgModule({
             declarations: [round_slider_1.RoundSliderComponent],
-            imports: [common_1.CommonModule]
+            imports: [common_1.CommonModule],
+            exports: [round_slider_1.RoundSliderComponent]
         })
     ], RoundSliderModule);
     return RoundSliderModule;

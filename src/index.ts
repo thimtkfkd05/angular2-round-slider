@@ -8,7 +8,8 @@ export { RoundSliderComponent } from './round-slider';
 
 @NgModule({
   declarations: [RoundSliderComponent],
-  imports: [CommonModule]
+  imports: [CommonModule],
+  exports: [RoundSliderComponent]
 })
 export class RoundSliderModule {
 
