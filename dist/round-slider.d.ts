@@ -14,6 +14,7 @@ export declare class RoundSliderComponent implements OnInit {
     scentColor: string;
     imageSize: number;
     imagePosition: number;
+    opacity: number;
     private thumb;
     private arcForeground;
     private arc;

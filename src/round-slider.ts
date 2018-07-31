@@ -7,7 +7,7 @@ import * as d3 from 'd3';
   template: `
     <div class="round-slider-container" [ngStyle]="{'width':width+'px', 'height':height+'px'}">
         <div class="round-slider-text">{{getRate()}}<span class="round-slider-text-unit">{{units}}</span><div class="round-slider-text-scent">{{scentName}}</div></div>
-        <div [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px'}" class="round-slider-image"></div>
+        <div [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px', 'opacity': opacity}" class="round-slider-image"></div>
     </div>`
 })
 export class RoundSliderComponent implements OnInit {
@@ -43,6 +43,7 @@ export class RoundSliderComponent implements OnInit {
 
   imageSize: number;
   imagePosition: number;
+  opacity: number;
 
   private thumb: any;
   private arcForeground: any;
@@ -82,6 +83,7 @@ export class RoundSliderComponent implements OnInit {
     // this.imagePosition = (this.width / 2) - this.radius;
     this.imageSize = this.width;
     this.imagePosition = 0;
+    this.opacity = 1;
 
     let host = d3.select(this.element.nativeElement);
     // host = d3.selectAll('.round-slider-container');
@@ -190,6 +192,7 @@ export class RoundSliderComponent implements OnInit {
   }
 
   private updateUI() {
+    this.opacity = 0.9999;
     if (this.localAngleValue === undefined || isNaN(this.localAngleValue)) {
       this.localAngleValue = this.valueToRadians(0);
     }
@@ -224,6 +227,7 @@ export class RoundSliderComponent implements OnInit {
 
       this.arcForeground.attr('d', this.arc({endAngle: arcAlpha}));
     }
+    this.opacity = 1;
   }
 
   private radiansToValue(radians: number): number {
