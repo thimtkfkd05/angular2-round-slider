@@ -47,7 +47,7 @@ var RoundSliderComponent = (function () {
         // this.imagePosition = (this.width / 2) - this.radius;
         this.imageSize = this.width;
         this.imagePosition = 0;
-        this.opacity = 1;
+        this.fakeFontSize = 14;
         var host = d3.select(this.element.nativeElement);
         // host = d3.selectAll('.round-slider-container');
         var drag = null;
@@ -131,6 +131,7 @@ var RoundSliderComponent = (function () {
             d3.select(this)
                 .attr('cx', d.x = instance.radius * Math.cos(alpha))
                 .attr('cy', d.y = instance.radius * Math.sin(alpha));
+            instance.fakeFontSize = instance.fakeFontSize == 14 ? 13 : 14;
         };
     };
     RoundSliderComponent.prototype.dragStarted = function (instance) {
@@ -142,7 +143,6 @@ var RoundSliderComponent = (function () {
         };
     };
     RoundSliderComponent.prototype.updateUI = function () {
-        this.opacity = 0.9999;
         if (this.localAngleValue === undefined || isNaN(this.localAngleValue)) {
             this.localAngleValue = this.valueToRadians(0);
         }
@@ -172,7 +172,6 @@ var RoundSliderComponent = (function () {
             }
             this.arcForeground.attr('d', this.arc({ endAngle: arcAlpha }));
         }
-        this.opacity = 1;
     };
     RoundSliderComponent.prototype.radiansToValue = function (radians) {
         var value = radians - (Math.PI / 2);
@@ -277,7 +276,7 @@ var RoundSliderComponent = (function () {
     RoundSliderComponent = __decorate([
         core_1.Component({
             selector: 'round-slider',
-            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <div class=\"round-slider-text\">{{getRate()}}<span class=\"round-slider-text-unit\">{{units}}</span><div class=\"round-slider-text-scent\">{{scentName}}</div></div>\n        <div [ngStyle]=\"{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px', 'opacity': opacity}\" class=\"round-slider-image\"></div>\n    </div>"
+            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <div class=\"round-slider-text\">{{getRate()}}<span class=\"round-slider-text-unit\">{{units}}</span><div class=\"round-slider-text-scent\">{{scentName}}</div></div>\n        <div [ngStyle]=\"{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px', 'font-size': fakeFontSize + 'px'}\" class=\"round-slider-image\"></div>\n    </div>"
         }),
         __metadata("design:paramtypes", [core_1.ElementRef])
     ], RoundSliderComponent);
