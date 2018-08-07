@@ -1,7 +1,7 @@
 {
-  "name": "angular2-round-slider",
-  "version": "0.2.9",
-  "description": "Angular 2 Round slider",
+  "name": "angular2-round-slider-custom",
+  "version": "0.0.1",
+  "description": "Customized Angular 2 Round slider",
   "main": "dist/index.js",
   "scripts": {
     "build": "ngc -p tsconfig.json",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jgbernalp/angular2-round-slider.git"
+    "url": "git+https://github.com/thimtkfkd05/angular2-round-slider-custom.git"
   },
   "keywords": [
     "angular",
@@ -18,14 +18,14 @@
     "slider"
   ],
   "author": {
-    "name": "Gabriel Bernal",
-    "email": "gabrielbernalp@gmail.com"
+    "name": "Taemin Song",
+    "email": "thimtkfkd05@gmail.com"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jgbernalp/angular2-round-slider/issues"
+    "url": "https://github.com/thimtkfkd05/angular2-round-slider-custom/issues"
   },
-  "homepage": "https://github.com/jgbernalp/angular2-round-slider#readme",
+  "homepage": "https://github.com/thimtkfkd05/angular2-round-slider-custom#readme",
   "dependencies": {
     "@angular/common": "2.2.1",
     "@angular/compiler": "2.2.1",

@@ -1,41 +1,72 @@
-# angular2-round-slider
+# angular2-round-slider-custom
+
+This module is customized from [angular2-round-slider by jgbernalp](https://github.com/jgbernalp/angular2-round-slider)
+
 
 ## Installation
 
 To install this component, run:
 
 ```bash
-$ npm install angular2-round-slider --save
+$ npm install angular2-round-slider-custom --save
 ```
 
-## Using Smartenit Module
+## Using Module
 
-Include RoundSliderComponent in your Angular 2 main module:
+1. Include RoundSliderComponent in your Angular 2 component module:
 
 ```typescript
 // ...
-import { RoundSliderComponent } from 'angular2-round-slider/dist';
+import { RoundSliderComponent } from 'angular2-round-slider-custom/dist';
 
 @NgModule({
   // ...
   declarations: [
     // ...
     RoundSliderComponent
+  ],
+  exports: [
+    // ...
+    RoundSliderComponent
   ]
 })
-export class AppModule { }
+export class ComponentsModule { }
 ```
+
+2. Include RoundSliderModule in your Angular 2 page module:
+
+```typescript
+// ...
+import { RoundSliderModule } from 'angular2-round-slider-custom/dist';
+
+@NgModule({
+  // ...
+  imports: [
+    RoundSliderModule,
+    // ...
+  ],
+  // ...
+})
+export class PageModule { }
+
 
 ## Usage
 
 ```html
 <round-slider #sliderElem 
-    [width]="140" 
-    [height]="140" 
-    [radius]="50"
-    [value]="levelControlValue"
+    [width]="120" 
+    [height]="120" 
+    [radius]="45"
+    [max]="100"
+    [min]="0"
+    [thick]="5"
+    [units]="%"
+    dragging="true"
+    [scentName]="lavender"
+    [scentColor]="#E6E6FA"
+    [(value)]="levelControlValue"
     (onChangeEnd)="listenerEvent$.next(sliderElem.value)"
-    [image]="'https://s-media-cache-ak0.pinimg.com/736x/99/9b/af/999baff3288ebe0232ac9d34ac7b73ba.jpg'"
+    [imageUrl]="'https://www.organicspamagazine.com/wp-content/uploads/2016/12/relax.jpg'"
 ></round-slider>
 
 ```
