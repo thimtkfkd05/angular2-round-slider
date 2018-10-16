@@ -152,6 +152,12 @@ var RoundSliderComponent = (function () {
         if (this.imageUrl && this.circleContainer) {
             this.circleContainer.attr('class', 'circumference transparent');
         }
+        if (this.scentColor) {
+            if (this.arcForeground && this.thumb) {
+                this.arcForeground.style('fill', this.scentColor).style('stroke', this.scentColor);
+                this.thumb.style('stroke', this.scentColor);
+            }
+        }
         var xpos = this.radius * Math.cos(this.localAngleValue);
         var ypos = this.radius * Math.sin(this.localAngleValue);
         if (this.thumb) {
@@ -220,6 +226,15 @@ var RoundSliderComponent = (function () {
     RoundSliderComponent.prototype.getRate = function () {
         return Math.floor(this._value / this.max * 100);
     };
+    RoundSliderComponent.prototype.getScent = function () {
+        if (this.scentColor) {
+            if (this.arcForeground && this.thumb) {
+                this.arcForeground.style('fill', this.scentColor).style('stroke', this.scentColor);
+                this.thumb.style('stroke', this.scentColor);
+            }
+        }
+        return this.scentName;
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Number)
@@ -276,7 +291,7 @@ var RoundSliderComponent = (function () {
     RoundSliderComponent = __decorate([
         core_1.Component({
             selector: 'round-slider',
-            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <div class=\"round-slider-text\">{{getRate()}}<span class=\"round-slider-text-unit\">{{units}}</span><div class=\"round-slider-text-scent\">{{scentName}}</div></div>\n        <div [ngStyle]=\"{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px', 'font-size': fakeFontSize + 'px'}\" class=\"round-slider-image\"></div>\n    </div>"
+            template: "\n    <div class=\"round-slider-container\" [ngStyle]=\"{'width':width+'px', 'height':height+'px'}\">\n        <div class=\"round-slider-text\">{{getRate()}}<span class=\"round-slider-text-unit\">{{units}}</span><div class=\"round-slider-text-scent\">{{getScent()}}</div></div>\n        <div [ngStyle]=\"{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px', 'font-size': fakeFontSize + 'px'}\" class=\"round-slider-image\"></div>\n    </div>"
         }),
         __metadata("design:paramtypes", [core_1.ElementRef])
     ], RoundSliderComponent);

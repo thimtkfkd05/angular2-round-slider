@@ -33,4 +33,5 @@ export declare class RoundSliderComponent implements OnInit {
     private valueToRadians(value);
     private dragEnded(instance);
     private getRate();
+    private getScent();
 }

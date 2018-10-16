@@ -6,7 +6,7 @@ import * as d3 from 'd3';
   selector: 'round-slider',
   template: `
     <div class="round-slider-container" [ngStyle]="{'width':width+'px', 'height':height+'px'}">
-        <div class="round-slider-text">{{getRate()}}<span class="round-slider-text-unit">{{units}}</span><div class="round-slider-text-scent">{{scentName}}</div></div>
+        <div class="round-slider-text">{{getRate()}}<span class="round-slider-text-unit">{{units}}</span><div class="round-slider-text-scent">{{getScent()}}</div></div>
         <div [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('+ imageUrl +')', 'width': imageSize + 'px', 'height': imageSize + 'px', 'top': imagePosition + 'px', 'left': imagePosition + 'px', 'font-size': fakeFontSize + 'px'}" class="round-slider-image"></div>
     </div>`
 })
@@ -205,6 +205,12 @@ export class RoundSliderComponent implements OnInit {
     if (this.imageUrl && this.circleContainer) {
       this.circleContainer.attr('class', 'circumference transparent');
     }
+    if (this.scentColor) {
+      if (this.arcForeground && this.thumb) {
+        this.arcForeground.style('fill', this.scentColor).style('stroke', this.scentColor);
+        this.thumb.style('stroke', this.scentColor);
+      }
+    }
 
     const xpos = this.radius * Math.cos(this.localAngleValue);
     const ypos = this.radius * Math.sin(this.localAngleValue);
@@ -285,5 +291,15 @@ export class RoundSliderComponent implements OnInit {
 
   private getRate() {
     return Math.floor(this._value / this.max * 100);
+  }
+
+  private getScent() {
+    if (this.scentColor) {
+      if (this.arcForeground && this.thumb) {
+        this.arcForeground.style('fill', this.scentColor).style('stroke', this.scentColor);
+        this.thumb.style('stroke', this.scentColor);
+      }
+    }
+    return this.scentName;
   }
 }
