@@ -1,6 +1,6 @@
 {
   "name": "angular2-round-slider-custom",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Customized Angular 2 Round slider",
   "main": "dist/index.js",
   "scripts": {
