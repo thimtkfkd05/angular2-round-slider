@@ -8,7 +8,7 @@ npm-debug.log
 # *.map
 # *.d.ts
 
-# src
+src
 # !dist/src
 sample
 

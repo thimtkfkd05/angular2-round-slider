@@ -14,13 +14,7 @@ exports.RoundSliderComponent = round_slider_2.RoundSliderComponent;
 var RoundSliderModule = (function () {
     function RoundSliderModule() {
     }
-    RoundSliderModule_1 = RoundSliderModule;
-    RoundSliderModule.forRoot = function () {
-        return {
-            ngModule: RoundSliderModule_1
-        };
-    };
-    RoundSliderModule = RoundSliderModule_1 = __decorate([
+    RoundSliderModule = __decorate([
         core_1.NgModule({
             declarations: [round_slider_1.RoundSliderComponent],
             imports: [common_1.CommonModule],
@@ -28,7 +22,6 @@ var RoundSliderModule = (function () {
         })
     ], RoundSliderModule);
     return RoundSliderModule;
-    var RoundSliderModule_1;
 }());
 exports.RoundSliderModule = RoundSliderModule;
 //# sourceMappingURL=index.js.map

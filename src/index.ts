@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from "@angular/core";
+import { NgModule } from "@angular/core";
 
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,9 +12,4 @@ export { RoundSliderComponent } from './round-slider';
   exports: [RoundSliderComponent]
 })
 export class RoundSliderModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: RoundSliderModule
-    }
-  }
 }
